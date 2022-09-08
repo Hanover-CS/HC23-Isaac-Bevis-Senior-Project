@@ -21,7 +21,7 @@
 The two options for microcontrolers that I have for this project are the [Raspberry Pi Pico Wireless][9] or the [ESP32][10].  I picked these particular microcontrolers because they are very inexpensive ($6 each for the Pico, if you can find them in stock, and around $8 to $12 each for the ESP32 depending on where you get them, I got mine on eBay).
 
 ## Importent Languages
-Both ESP32 and the Raspberry Pi Pico support using Arduino IDE with [C++][8] or they also support [MicroPython][7] using the Thonney IDE.  MicroPython is a lightweight version of Python desighed for low power devices such as microcontrolers.
+Both ESP32 and the Raspberry Pi Pico support using Arduino IDE with [C++][8] ([C++ for Pico][12]) or they also support [MicroPython][7] ([MicroPython for Pico][11]) using the Thonney IDE.  MicroPython is a lightweight version of Python desighed for low power devices such as microcontrolers.
 
 
 [1]: https://github.com/fryefryefrye/Open-Source-RKS "Open Souce Remote Keyless System"
@@ -37,3 +37,7 @@ Both ESP32 and the Raspberry Pi Pico support using Arduino IDE with [C++][8] or 
 [9]: https://www.raspberrypi.com/products/raspberry-pi-pico/ "Raspberry Pi Pico product page"
 
 [10]: https://www.espressif.com/en/products/socs/esp32 "ESP32 product page"
+
+[11]: https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html "Raspberry Pi Pico C++ documentation"
+
+[12]: https://www.raspberrypi.com/documentation/microcontrollers/micropython.html "Raspberry Pi Pico MicroPython documentation"
