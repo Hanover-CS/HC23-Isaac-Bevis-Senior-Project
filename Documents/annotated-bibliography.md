@@ -21,7 +21,22 @@
 The two options for microcontrolers that I have for this project are the [Raspberry Pi Pico Wireless][9] or the [ESP32][10].  I picked these particular microcontrolers because they are very inexpensive ($6 each for the Pico, if you can find them in stock, and around $8 to $12 each for the ESP32 depending on where you get them, I got mine on eBay).
 
 ## Importent Languages
-Both ESP32 and the Raspberry Pi Pico support using Arduino IDE with [C++][8] ([C++ for Pico][12]) or they also support [MicroPython][7] ([MicroPython for Pico][11]) using the Thonney IDE.  MicroPython is a lightweight version of Python desighed for low power devices such as microcontrolers.
+Both ESP32 and the Raspberry Pi Pico support [C++][8] ([C++ for Pico][12]) using Arduino IDE, or they also support [MicroPython][7] ([MicroPython for Pico][11]) using the Thonney IDE.  MicroPython is a lightweight version of Python desighed for low power devices such as microcontrolers.
+
+## Choosing the right microcontroler
+### Power draw:  
+- The ESP32 at idle draws a meer 0.3 watts but it can ramp up as high as 3.0 watts under full load using WiFi. [Source][13].
+- Unfortunetly since the Pico W is really new I could not find a decisive test of power draw done on it, but according to [this forum thread][14] people seem to be dawing around 50 to 150 mA at 4.6V, this equates to around 4.6V * 0.05A = 0.23W at minimum and 4.6V * 0.15A = 0.69W at maximum.  
+- The Pico W is the obvious winner because inside a small custom keyfob, where you don't have much room for a large battery, you need a device that uses the least power possible.
+### Physical size:
+As seen below, the ESP32 (black board) messures in at 2.7 by 5 centemeters whereas the Pico W (green board) comes in at only 2 by 5 CM    
+![Size comparison 1](./SizeComp1.png) ![Size comparison 2](./SizeComp2.png)   
+They are both pretty much take up the same footprint, but in terms of a custom keyfob the extra 7 millimeters width would make a noticable difference in the size of the finnished device.  So I think the Pico W wins again here.
+### Module support:
+- The ESP32 has Bluetooth LE support for both [C++][15] and [MicroPython][16], it also has support for the customized low-power WiFi protocol [ESP-NOW][4], but I beleive this is for C++ only.
+- Unfortunatly, as of writting this the Pico W is still very new and Bluetooth LE is currently disabled in the MicroPython firmware, and C++ Bluetooth libraries are uncompatible with the pico's RP2040 chip.  So this leaves the Pico W with only WiFi, so the closest you could get is having one device serve as an access point and the other a client and comunicate that way.
+- This is a major victory for the ESP32, because of it's age it just has more libraries written for it.
+
 
 
 [1]: https://github.com/fryefryefrye/Open-Source-RKS "Open Souce Remote Keyless System"
@@ -41,3 +56,11 @@ Both ESP32 and the Raspberry Pi Pico support using Arduino IDE with [C++][8] ([C
 [11]: https://www.raspberrypi.com/documentation/microcontrollers/c_sdk.html "Raspberry Pi Pico C++ documentation"
 
 [12]: https://www.raspberrypi.com/documentation/microcontrollers/micropython.html "Raspberry Pi Pico MicroPython documentation"
+
+[13]: https://therandomwalk.org/wp/esp32-power-consumption/ "ESP32 Power consumption information"
+
+[14]: https://forums.raspberrypi.com/viewtopic.php?t=337145
+
+[15]: https://www.arduino.cc/reference/en/libraries/esp32-ble-arduino/ "BLE ESP32 Arduino documentation"
+
+[16]: https://docs.micropython.org/en/latest/library/bluetooth.html "BLE ESP32 MicroPython Docs"
