@@ -16,6 +16,7 @@
 ## Important protocols
 1. [ESP-NOW][4] is a WiFi protocol that doesn't require a network connection/router to function.  It functions similar to a peer to peer network.  It simplifies the upper 5 layers of WiFi network communication (Network, Transport, Session, Presentation, and Application) are simplified into one layer in ESP-NOW, making it more power efficient and responsive.  I think that for a hacker standing by your car this would be harder to figure out how to crack and unlock (obviously you could just break a window but that is outside the scope of this project).
 2. [Bluetooth][6] The ESP32 can use the standard Bluetooth LE (Low Energy) protocol to communicate to other bluetooth compatible devices, such as a phone, laptop, or another ESP32-like device.  
+3. [Regular WiFi][17] As mentioned in the coming sections, the Raspberry Pi Pico W is not currently compatible with bluetooth, and it also doesn't have an ESP-NOW equivalent.  So one Pico must serve as an Access Point that the other connects too, the AP Pico must also host a web server to allow them to talk to each other.
 
 ## Microcontrollers
 The two options for microcontrollers that I have for this project are the [Raspberry Pi Pico Wireless][9] or the [ESP32][10].  I picked these particular microcontrollers because they are very inexpensive ($6 each for the Pico, if you can find them in stock, and around $8 to $12 each for the ESP32 depending on where you get them, I got mine on eBay).
@@ -64,3 +65,5 @@ They are both pretty much take up the same footprint, but in terms of a custom k
 [15]: https://www.arduino.cc/reference/en/libraries/esp32-ble-arduino/ "BLE ESP32 Arduino documentation"
 
 [16]: https://docs.micropython.org/en/latest/library/bluetooth.html "BLE ESP32 MicroPython Docs"
+
+[17]: https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf "Raspberry Pi Pico W WiFi documentation"
