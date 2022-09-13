@@ -9,7 +9,7 @@
     [ESP32 Cam-Based Smart Bluetooth Lock][2].
     This system is used to unlock a door in your house without a key or RFID chip, it just connects to a phone via bluetooth which then authorizes the opening of the door. 
 3. Two way communication between two ESP32 microcontrollers using WiFi module:
-    [ESP-NOW Two-Way Communication Between ESP32 Boards][3].  This Project uses the [ESP-NOW protocol][4] to send messages of up to 250 bytes in length without using WiFi.
+    [ESP-NOW Two-Way Communication Between ESP32 Boards][3].  This Project uses the [ESP-NOW protocol][4] to send messages directly to the other device over WiFi without going through an Access Point or Router.
 4. Bluetooth controlled robot car using ESP32 and Android phone:
     [Bluetooth controlled car][5].  In this project, you use an ESP32 and it's built-in Bluetooth module to control a robot car.
 
