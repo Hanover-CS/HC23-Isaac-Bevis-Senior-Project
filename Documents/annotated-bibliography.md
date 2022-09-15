@@ -22,13 +22,13 @@
 The two options for microcontrollers that I have for this project are the [Raspberry Pi Pico Wireless][9] or the [ESP32][10].  I picked these particular microcontrollers because they are very inexpensive ($6 each for the Pico, if you can find them in stock, and around $8 to $12 each for the ESP32 depending on where you get them, I got mine on eBay).
 
 ## Important Languages
-Both ESP32 and the Raspberry Pi Pico support [C++][8] ([C++ for Pico][12]) using Arduino IDE, or they also support [MicroPython][7] ([MicroPython for Pico][11]) using the Thonney IDE.  MicroPython is a lightweight version of Python designed for low power devices such as microcontrollers.
+Both ESP32 and the Raspberry Pi Pico support [C++][8] ([C++ for Pico][12]) using Arduino IDE, or they also support [MicroPython][7] ([MicroPython for Pico][11]) using the Thonny IDE.  MicroPython is a lightweight version of Python designed for low power devices such as microcontrollers.
 
 ## Choosing the right microcontrollers
 ### Power draw:  
-- The ESP32 at idle draws a meer 0.3 watts but it can ramp up as high as 3.0 watts under full load using WiFi. [Source][13].
+- The ESP32 at idle draws a mere 0.25 watts but it can ramp up as high as 0.83 watts under full load using WiFi. [Source][13].
 - Unfortunately since the Pico W is really new I could not find a decisive test of power draw done on it, but according to [this forum thread][14] people seem to be drawing around 50 to 150 mA at 4.6V, this equates to around 4.6V * 0.05A = 0.23W at minimum and 4.6V * 0.15A = 0.69W at maximum.  
-- The Pico W is the obvious winner because inside a small custom key fob, where you don't have much room for a large battery, you need a device that uses the least power possible.
+- The Pico W has a slight edge here but I think both are valid options because they are very close.
 ### Physical size:
 As seen below, the ESP32 (black board) measures in at 2.7 by 5 centimeters whereas the Pico W (green board) comes in at only 2 by 5 CM    
 ![Size comparison 1](./SizeComp1.png) ![Size comparison 2](./SizeComp2.png)   
