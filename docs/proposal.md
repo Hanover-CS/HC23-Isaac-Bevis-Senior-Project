@@ -38,10 +38,10 @@ My project would greatly benefit from the added robustness of ESP-NOW, when comp
 
 
 
-[^1]: Forum thread where they are talking about power draw of the Pico https://forums.raspberrypi.com/viewtopic.php?t=337145  
-[^2]: Article on ESP32 power draw https://therandomwalk.org/wp/esp32-power-consumption/  
-[^3]: Raspberry Pi Pico W data sheet https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf  
-[^4]: ESP32 data sheet PDF https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf
+[^1]: Forum thread where they are talking about power draw of the Pico [forums.raspberrypi.com](https://forums.raspberrypi.com/viewtopic.php?t=337145)  
+[^2]: Article on ESP32 power draw [therandomwalk.org](https://therandomwalk.org/wp/esp32-power-consumption/)  
+[^3]: Raspberry Pi Pico W data sheet [datasheets.raspberrypi.com](https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf)  
+[^4]: ESP32 data sheet PDF [espressif.com](https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf)
 
 [1]: https://github.com/fryefryefrye/Open-Source-RKS "Open Source Remote Keyless System"
 [2]: https://www.electronicsforu.com/electronics-projects/hardware-diy/esp32cam-based-smart-bluetooth-lock "Smart Bluetooth Lock using ESP32"
