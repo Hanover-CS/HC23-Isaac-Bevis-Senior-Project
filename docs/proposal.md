@@ -17,7 +17,7 @@ One project I would be pulling ideas from is this [ESP32-Based Smart Bluetooth L
 |                      |          Pico W         |             ESP32           |
 | -------------------- | ----------------------- | --------------------------- |
 | Power Draw           | 0.69 Watts Max          | 0.83 Watts Max              |
-| CPU Clock Speed      | Dual core @ 133 MHz     | Dual code @ 240 MHz         |
+| CPU Clock Speed      | 32bit Dual core @ 133 MHz     | 32bit Dual code @ 240 MHz         |
 | RAM and ROM storage  | 264 KiB RAM / 2 MiB ROM | 520KiB RAM / 488 KiB ROM    |
 | Supported Libraries  | WiFi Only               | WiFi, BLE, ESP-NOW          |
 
@@ -36,12 +36,28 @@ Then to make a message we just use a simple struct with two attributes, there co
 And then to send the message, it must be converted to `uint8_t` data type and sent with the `esp_now_send` method.  [See appendix 2.c](https://hanover-cs.github.io/HC23-Isaac-Bevis-Senior-Project/appendix.html#2c-esp-now-example-3).
 My project would greatly benefit from the added robustness of ESP-NOW, when comparing to WiFi, it is a night and day difference.  With WiFi you have to create an access point with a secure password and host a web server to communicate.  Whereas with ESP-NOW all one has to do is register a device to broadcast to by it's MAC address and then you can send any data up to 250 bytes in size.  In the case of connection drop off, the system continues to function and immediately resumes sending data when the other device becomes in range again.  So for my project I will be using ESP-NOW to communicate.
 
+## Security (Rolling Codes)
+### Overview
+Modern cars use a 40-bit rolling code, sometimes called a hopping code, to securly varify that a particular key fob belongs to a car.  Both the receiver and the trasmitter use the same seudo-random number generator and remain "in sync" so that the next random number will be the same on both the transmitter and the reciever.  The reciever is able to accept the next 256 "random" codes so that if you accedentilly press the button when the car is out of range it doesnt desync them, rendering the key fob useless.[^5]  Based on my use case, there isn't really anything else to use, so it becomes a matter of how to implement a rolling code algorithm.  Since the microcontollers I will be using have a Xtensa dual-core 32-bit LX6 microprocessor, I am limited to 32-bits for a rolling code for best preformance.  With the ESP-NOW communication protocol, I have 250 bits to work with for sending data.  This means I can set up a message system using the following amount of bits for each part:
+- 32 bits for the rolling code, our maximum as stated previously
+- 64 bits for system time, this serves two functions:
+    - 1: prevents the code jamming and storing vulnerabillity that some rolling code algorithms suffer from
+    - 2: allows to semi accuratly tell the distance from key fob to vehicle, allowing for remote keyless entry
+    - I don't necisarilly need 64 bits but it would allow for the most precission and compensate for the far future Y2K38 issue.
+- 4 bits for action code,
+    - this allows for up to 16 actions, we really only need to lock, unlock, and check range this just adds fute proofing and rounds the total message up to a nice even number.  
+
+With this method, I have a nice even 100 bits for the total message length, easilly fitting inside our maximum message size.
+
+### Implementing the rolling code
+To be continued.
 
 
 [^1]: Forum thread where they are talking about power draw of the Pico [forums.raspberrypi.com](https://forums.raspberrypi.com/viewtopic.php?t=337145)  
 [^2]: Article on ESP32 power draw [therandomwalk.org](https://therandomwalk.org/wp/esp32-power-consumption/)  
 [^3]: Raspberry Pi Pico W data sheet [datasheets.raspberrypi.com](https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf)  
-[^4]: ESP32 data sheet PDF [espressif.com](https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf)
+[^4]: ESP32 data sheet PDF [espressif.com](https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf)  
+[^5]: [how stuff works](https://auto.howstuffworks.com/remote-entry2.htm)
 
 [1]: https://github.com/fryefryefrye/Open-Source-RKS "Open Source Remote Keyless System"
 [2]: https://www.electronicsforu.com/electronics-projects/hardware-diy/esp32cam-based-smart-bluetooth-lock "Smart Bluetooth Lock using ESP32"
