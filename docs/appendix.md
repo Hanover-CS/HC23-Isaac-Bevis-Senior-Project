@@ -133,3 +133,7 @@ void loop() {
 
 }
 ```
+
+## Security examples
+### 3.a rolling code diagram
+![Rolling code diagram](./assets/rollingcode.png)

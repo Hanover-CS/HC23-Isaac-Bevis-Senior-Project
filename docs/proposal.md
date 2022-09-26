@@ -41,7 +41,7 @@ My project would greatly benefit from the added robustness of ESP-NOW, when comp
 Modern cars use a 40-bit rolling code, sometimes called a hopping code, to securly varify that a particular key fob belongs to a car.  Both the receiver and the trasmitter use the same seudo-random number generator and remain "in sync" so that the next random number will be the same on both the transmitter and the reciever.  The reciever is able to accept the next 256 "random" codes so that if you accedentilly press the button when the car is out of range it doesnt desync them, rendering the key fob useless.[^5]  Based on my use case, there isn't really anything else to use, so it becomes a matter of how to implement a rolling code algorithm.  Since the microcontollers I will be using have a Xtensa dual-core 32-bit LX6 microprocessor, I am limited to 32-bits for a rolling code for best preformance.  With the ESP-NOW communication protocol, I have 250 bits to work with for sending data.  This means I can set up a message system using the following amount of bits for each part:
 - 32 bits for the rolling code, our maximum as stated previously
 - 64 bits for system time, this serves two functions:
-    - 1: prevents the code jamming and storing vulnerabillity that some rolling code algorithms suffer from
+    - 1: prevents the code jamming and storing vulnerabillity that was discovered by Samy Kamkar in 2015 called a "Rolljam" attack.[^6]  We can prevent this by only allowing codes from X minutes prior, even if they are "valid" rolling codes.
     - 2: allows to semi accuratly tell the distance from key fob to vehicle, allowing for remote keyless entry
     - I don't necisarilly need 64 bits but it would allow for the most precission and compensate for the far future Y2K38 issue.
 - 4 bits for action code,
@@ -50,14 +50,15 @@ Modern cars use a 40-bit rolling code, sometimes called a hopping code, to secur
 With this method, I have a nice even 100 bits for the total message length, easilly fitting inside our maximum message size.
 
 ### Implementing the rolling code
-To be continued.
+In a rolling code system, the key fob stores its current code in memory (C).  This code is incremented every time a button is pressed, by using a seudo random number generator with seed (S), and bundles this code with the current time (T).  The receiver in the car stores the most recent varified code it has received (N).  When the receiver gets a new code, it checks this code againced the next few (K) codes using seed (S).  If it matches it first will check the 64 bit time value, if recieved time T is not within M minutes of the current time, it will ignore this code, else it replaces N with the new code received, and does specified action.  If the codes do not match it also will of course ignore the code. See [apendix 3.a](https://hanover-cs.github.io/HC23-Isaac-Bevis-Senior-Project/appendix.html#3a-rolling-code-diagram) for detailed diagram.
 
 
 [^1]: Forum thread where they are talking about power draw of the Pico [forums.raspberrypi.com](https://forums.raspberrypi.com/viewtopic.php?t=337145)  
 [^2]: Article on ESP32 power draw [therandomwalk.org](https://therandomwalk.org/wp/esp32-power-consumption/)  
 [^3]: Raspberry Pi Pico W data sheet [datasheets.raspberrypi.com](https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf)  
 [^4]: ESP32 data sheet PDF [espressif.com](https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf)  
-[^5]: [how stuff works](https://auto.howstuffworks.com/remote-entry2.htm)
+[^5]: [how stuff works](https://auto.howstuffworks.com/remote-entry2.htm)  
+[^6]: article on how rolljam can be used on [hackster.io](https://www.hackster.io/news/hacking-a-car-s-key-fob-with-a-rolljam-attack-7f863c10c8da)
 
 [1]: https://github.com/fryefryefrye/Open-Source-RKS "Open Source Remote Keyless System"
 [2]: https://www.electronicsforu.com/electronics-projects/hardware-diy/esp32cam-based-smart-bluetooth-lock "Smart Bluetooth Lock using ESP32"
