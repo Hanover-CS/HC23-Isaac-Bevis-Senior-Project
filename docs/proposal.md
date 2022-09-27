@@ -52,16 +52,33 @@ With this method, I have a nice even 100 bits for the total message length, easi
 ### Implementing the rolling code
 In a rolling code system, the key fob stores its current code in memory (C).  This code is incremented every time a button is pressed, by using a pseudo random number generator with seed (S), and bundles this code with the current time (T).  The receiver in the car stores the most recent verified code it has received (N).  When the receiver gets a new code, it checks this code against the next few (K) codes using seed (S).  If it matches it first will check the 64 bit time value, if received time T is not within M minutes of the current time, it will ignore this code, else it replaces N with the new code received, and does specified action.  If the codes do not match it also will of course ignore the code. See [appendix 3.a](https://hanover-cs.github.io/HC23-Isaac-Bevis-Senior-Project/appendix.html#3a-rolling-code-diagram) for detailed diagram.
 
+### Implementing the range finding
+In a modern car, the remote keyless entry (RKE) works by a complex array of antennas in and around the car that can pinpoint the key's exact location, these allow the car to know how close the key is and weather it is inside the car or not.  They also have capacitive touch sensing handles that unlock the car when someone touches it and the key is detected within a certain distance[^7].  For obvious reasons, I cannot equip my system with a complex array of antennas or capacitive touch sensors, so I will be exploring two other possible options; estimating based on the signal strength, or using the time traveled of the wireless signal.  
+
+- ### Using signal strength for distance
+    {to be continued} Need more research.
+
+- ### Using time traveled for distance calculation
+    This means that both the key fob and the receiver must have very accurately synchronized hardware clocks.  The ESP32 has two available [internal hardware clocks][6]:
+    - the RTC time with resolution of 6.667 μs; this clock is persistent through sleep modes and soft resets,
+    - and the high-resolution timer; this clock is not persistent through either sleep modes or soft resets but has resolution of 1.0 μs.
+    
+    In this method, the receiver would also serve as a sender and would send out "pings" to the key fob every 10-20 seconds.  When the key fob receives this signal, it will use the time the other ESP32 in the car sent in its message and its own time to determine the distance.  Then if the key decides it is close enough, it will automatically send the unlock signal with the rolling code to the car.
+
+
+
 
 [^1]: Forum thread where they are talking about power draw of the Pico [forums.raspberrypi.com](https://forums.raspberrypi.com/viewtopic.php?t=337145)  
 [^2]: Article on ESP32 power draw [therandomwalk.org](https://therandomwalk.org/wp/esp32-power-consumption/)  
 [^3]: Raspberry Pi Pico W data sheet [datasheets.raspberrypi.com](https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf)  
 [^4]: ESP32 data sheet PDF [espressif.com](https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf)  
 [^5]: [how stuff works](https://auto.howstuffworks.com/remote-entry2.htm)  
-[^6]: article on how rolljam can be used on [hackster.io](https://www.hackster.io/news/hacking-a-car-s-key-fob-with-a-rolljam-attack-7f863c10c8da)
+[^6]: article on how rolljam can be used on [hackster.io](https://www.hackster.io/news/hacking-a-car-s-key-fob-with-a-rolljam-attack-7f863c10c8da)  
+[^7]: Proximity keys and other unlocking innovations [carexpert.com.au](https://www.carexpert.com.au/car-news/proximity-keys-and-other-unlocking-innovations)
 
 [1]: https://github.com/fryefryefrye/Open-Source-RKS "Open Source Remote Keyless System"
 [2]: https://www.electronicsforu.com/electronics-projects/hardware-diy/esp32cam-based-smart-bluetooth-lock "Smart Bluetooth Lock using ESP32"
 [3]: https://github.com/espressif/esp-now "ESP-NOW protocol github page"
 [4]: https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf "Raspberry Pi Pico W WiFi documentation"
 [5]: https://docs.micropython.org/en/latest/library/bluetooth.html "BLE ESP32 MicroPython Docs"
+[6]: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/system_time.html "ESP32 System Time Docs"
