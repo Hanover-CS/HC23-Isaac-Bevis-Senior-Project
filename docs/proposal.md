@@ -37,12 +37,15 @@ And then to send the message, it must be converted to `uint8_t` data type and se
 My project would greatly benefit from the added robustness of ESP-NOW, when comparing to WiFi, it is a night and day difference.  With WiFi you have to create an access point with a secure password and host a web server to communicate.  Whereas with ESP-NOW all one has to do is register a device to broadcast to by it's MAC address and then you can send any data up to 250 bytes in size.  In the case of connection drop off, the system continues to function and immediately resumes sending data when the other device becomes in range again.  So for my project I will be using ESP-NOW to communicate.
 
 ## Software (Programming Languages)
+In terms of programming languages, I have two to choose from, [MicroPython][7] and [C++][8].  Both microcontrollers support these languages and all three protocols can be used with these languages.
 ### MicroPython
+MicroPython is a "boiled down" version of [Python 3][9] that only includes a few of the standard libraries, allowing it to run on microcontrollers with just 16kB of RAM.  MicroPython is also different to regular python 3 in the sense that it is a full compiler and runtime and runs on the bare metal.  MicroPython has special machine libraries that allow the user to program at a low level.
 ### C++
+C++ (C plus plus), is a programming language in the C family that was made in 1985.  C++ was made with embedded systems and resource restricted systems, as well as larger systems in mind.  C++ is a fully compiled language that runs on the bare metal, which makes it faster than other languages like Python.  
 
 ## Security (Rolling Codes)
 ### Overview
-Modern cars use a 40-bit rolling code, sometimes called a hopping code, to securely verify that a particular key fob belongs to a car.  Both the receiver and the transmitter use the same pseudo-random number generator and remain "in sync" so that the next random number will be the same on both the transmitter and the receiver.  The receiver is able to accept the next 256 "random" codes so that if you accidentally press the button when the car is out of range it doesn't de-sync them, rendering the key fob useless.[^5]  Based on my use case, there isn't really anything else to use, so it becomes a matter of how to implement a rolling code algorithm.  Since the microcontrollers I will be using have a Xtensa dual-core 32-bit LX6 microprocessor, I am limited to 32-bits for a rolling code for best performance.  With the ESP-NOW communication protocol, I have 250 bits to work with for sending data.  This means I can set up a message system using the following amount of bits for each part:
+Modern cars use a 40-bit rolling code, sometimes called a hopping code, to securely verify that a particular key fob belongs to a car.  Both the receiver and the transmitter use the same pseudo-random number generator and remain "in sync" so that the next random number will be the same on both the transmitter and the receiver.  The receiver is able to accept the next 256 "random" codes so that if you accidentally press the button when the car is out of range it doesn't de-sync them, rendering the key fob useless.[^5]  Based on my use case, there isn't really anything else to use, so it becomes a matter of how to implement a rolling code algorithm.  Since the microcontrollers I will be using have a Xtensa dual-core 32-bit microprocessor, I am limited to 32-bits for a rolling code for best performance.  With the ESP-NOW communication protocol, I have 250 bits to work with for sending data.  This means I can set up a message system using the following amount of bits for each part:
 - 32 bits for the rolling code, our maximum as stated previously
 - 64 bits for system time, this serves two functions:
     - 1: prevents the code jamming and storing vulnerability that was discovered by Samy Kamkar in 2015 called a "Rolljam" attack.[^6]  We can prevent this by only allowing codes from X minutes prior, even if they are "valid" rolling codes.
@@ -95,3 +98,7 @@ In a modern car, the remote keyless entry (RKE) works by a complex array of ante
 [4]: https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf "Raspberry Pi Pico W WiFi documentation"
 [5]: https://docs.micropython.org/en/latest/library/bluetooth.html "BLE ESP32 MicroPython Docs"
 [6]: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/system_time.html "ESP32 System Time Docs"
+[7]: https://micropython.org/ "MicroPython Organization page"
+[8]: https://en.wikipedia.org/wiki/C%2B%2B "Wikipedia on c++"
+[9]: https://www.python.org/ "Python Organization page"
+
