@@ -22,7 +22,7 @@ One project I would be pulling ideas from is this [ESP32-Based Smart Bluetooth L
 | Supported Libraries  | WiFi Only               | WiFi, BLE, ESP-NOW          |
 
 On the hardware side there are a few options, but I will only be discussing the two cheapest options.  The two options are the Raspberry Pi Pico W (shortened to Pico from here on) and the ESP32.  The first aspect I will look at to decide on hardware is the power draw of each device.  The Pico draws around 0.23 watts (4.6V * 0.05A = 0.23W) and around 0.69 watts (4.6V * 0.15A = 0.69W) at full load[^1]. The ESP32 on the other hand is a little bit more power hungry, coming in at 0.3 watts at idle and 0.83 watts under full load (downloading and uploading files to network)[^2].  The Pico seems to be slightly more efficient than the ESP32, but the ESP32 runs at double the clock speed as the Pico so they are probably pretty similar in the performance per watt side.  Speaking of clock speed, the Pico is powered by the RP2040 which is a dual core Arm cpu clocking at 133 MHz and has 264 KiB RAM and 2 MB of program storage[^3].  The ESP32 is powered by a Xtensa dual core cpu clocking at 240 MHz and has 520 KiB of SRAM and 488 KiB ROM[^4].  The ESP32 has a lot more 'horsepower' on paper than the Pico but the only thing that might work better for my application would be the larger program storage on the Pico, but they would still both work.  The next thing to look at for this comparison is software compatibility. The ESP32 has libraries for WiFi, bluetooth and the custom protocol [ESP-NOW][3], whereas the Pico currently only has libraries for WiFi, so to figure out which microcontrollers to use, we need to look at these protocols.
-## Software
+## Software (protocols)
 In terms of protocols we have three choices, [ESP-NOW][3], [WiFi][4], and [Bluetooth][5].  Since not all of these protocols are supported by both microcontrollers, our choice here will decide what microcontrollers we will have to use.  So, to help figure out which is best, I made a simple test program using each.  
 ### WiFi (Pico W)
 First I tested using the Pico W using its only current supported protocol, WiFi.  In terms of actual programming, it was relatively easy to set up, but as soon as you get into functionality it soon became a nightmare.  For this test I used two Picos, one serving as a WiFi access point and hosting a simple web server, the other as a client which would connect to the access point and then send HTTP requests to the server.  To set up the access point we just need to set a ssid and password and setup a network in access point mode. [See appendix 1.a](https://hanover-cs.github.io/HC23-Isaac-Bevis-Senior-Project/appendix.html#1a-micropython-wifi-example-1).
@@ -35,6 +35,10 @@ Next I tested ESP-NOW, it was a bit harder to understand and program it at first
 Then to make a message we just use a simple struct with two attributes, there could be more if needed (maximum of 250 bytes total). [See appendix 2.b](https://hanover-cs.github.io/HC23-Isaac-Bevis-Senior-Project/appendix.html#2b-esp-now-example-2).
 And then to send the message, it must be converted to `uint8_t` data type and sent with the `esp_now_send` method.  [See appendix 2.c](https://hanover-cs.github.io/HC23-Isaac-Bevis-Senior-Project/appendix.html#2c-esp-now-example-3).
 My project would greatly benefit from the added robustness of ESP-NOW, when comparing to WiFi, it is a night and day difference.  With WiFi you have to create an access point with a secure password and host a web server to communicate.  Whereas with ESP-NOW all one has to do is register a device to broadcast to by it's MAC address and then you can send any data up to 250 bytes in size.  In the case of connection drop off, the system continues to function and immediately resumes sending data when the other device becomes in range again.  So for my project I will be using ESP-NOW to communicate.
+
+## Software (Programming Languages)
+### MicroPython
+### C++
 
 ## Security (Rolling Codes)
 ### Overview
@@ -56,7 +60,16 @@ In a rolling code system, the key fob stores its current code in memory (C).  Th
 In a modern car, the remote keyless entry (RKE) works by a complex array of antennas in and around the car that can pinpoint the key's exact location, these allow the car to know how close the key is and weather it is inside the car or not.  They also have capacitive touch sensing handles that unlock the car when someone touches it and the key is detected within a certain distance[^7].  For obvious reasons, I cannot equip my system with a complex array of antennas or capacitive touch sensors, so I will be exploring two other possible options; estimating based on the signal strength, or using the time traveled of the wireless signal.  
 
 - ### Using signal strength for distance
-    {to be continued} Need more research.
+    {to be continued} need to write info here based on stuff below...
+    info on how to do this with math for future reference: 
+    - https://stackoverflow.com/questions/11217674/how-to-calculate-distance-from-wifi-router-using-signal-strength
+    - get signal strength in dBm: https://www.esp32.com/viewtopic.php?t=13889
+    - some example code in python: https://gist.github.com/cryptolok/516471ce35a9851197b204853c6de080
+    - Free Space Path Loss calculator: https://www.everythingrf.com/rf-calculators/free-space-path-loss-calculator
+    - What on earth is FSPL: https://en.wikipedia.org/wiki/Free-space_path_loss
+    VERY math heavy, need to figure out FSPL for an esp32 at an average distance and use that to derive an equation for the distance (in meters) based on signal strength (in dBm).
+
+    If I can write and verify the accuracy of this equation this would be much more reliable and accurate then calculating distance based on signal travel time.
 
 - ### Using time traveled for distance calculation
     This means that both the key fob and the receiver must have very accurately synchronized hardware clocks.  The ESP32 has two available [internal hardware clocks][6]:
