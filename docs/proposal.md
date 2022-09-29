@@ -40,8 +40,10 @@ My project would greatly benefit from the added robustness of ESP-NOW, when comp
 In terms of programming languages, I have two to choose from, [MicroPython][7] and [C++][8].  Both microcontrollers support these languages and all three protocols can be used with these languages.
 ### MicroPython
 MicroPython is a "boiled down" version of [Python 3][9] that only includes a few of the standard libraries, allowing it to run on microcontrollers with just 16kB of RAM.  MicroPython is also different to regular python 3 in the sense that it is a full compiler and runtime and runs on the bare metal.  MicroPython has special machine libraries that allow the user to program at a low level.
+{To be continued}
 ### C++
 C++ (C plus plus), is a programming language in the C family that was made in 1985.  C++ was made with embedded systems and resource restricted systems, as well as larger systems in mind.  C++ is a fully compiled language that runs on the bare metal, which makes it faster than other languages like Python.  
+{To be continued}
 
 ## Security (Rolling Codes)
 ### Overview
@@ -64,12 +66,12 @@ In a modern car, the remote keyless entry (RKE) works by a complex array of ante
 
 - ### Using signal strength for distance
     {to be continued} need to write info here based on stuff below...
-    info on how to do this with math for future reference: 
-    - https://stackoverflow.com/questions/11217674/how-to-calculate-distance-from-wifi-router-using-signal-strength
-    - get signal strength in dBm: https://www.esp32.com/viewtopic.php?t=13889
-    - some example code in python: https://gist.github.com/cryptolok/516471ce35a9851197b204853c6de080
-    - Free Space Path Loss calculator: https://www.everythingrf.com/rf-calculators/free-space-path-loss-calculator
-    - What on earth is FSPL: https://en.wikipedia.org/wiki/Free-space_path_loss
+    info on how to do this with math for future my reference: 
+    - [how to calculate distance from wifi router using signal strength](https://stackoverflow.com/questions/11217674/how-to-calculate-distance-from-wifi-router-using-signal-strength)
+    - [get signal strength in dBm on esp32](https://www.esp32.com/viewtopic.php?t=13889)
+    - [some example code in python](https://gist.github.com/cryptolok/516471ce35a9851197b204853c6de080)
+    - [Free Space Path Loss calculator](https://www.everythingrf.com/rf-calculators/free-space-path-loss-calculator)
+    - [What on earth is FSPL](https://en.wikipedia.org/wiki/Free-space_path_loss)
     VERY math heavy, need to figure out FSPL for an esp32 at an average distance and use that to derive an equation for the distance (in meters) based on signal strength (in dBm).
 
     If I can write and verify the accuracy of this equation this would be much more reliable and accurate then calculating distance based on signal travel time.
