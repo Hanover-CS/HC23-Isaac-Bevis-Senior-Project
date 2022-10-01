@@ -38,12 +38,10 @@ My project would greatly benefit from the added robustness of ESP-NOW, when comp
 
 ## Software (Programming Languages)
 In terms of programming languages, I have two to choose from, [MicroPython][7] and [C++][8].  Both microcontrollers support these languages and all three protocols can be used with these languages.
-### MicroPython
-MicroPython is a "boiled down" version of [Python 3][9] that only includes a few of the standard libraries, allowing it to run on microcontrollers with just 16kB of RAM.  MicroPython is also different to regular python 3 in the sense that it is a full compiler and runtime and runs on the bare metal.  MicroPython has special machine libraries that allow the user to program at a low level.
-{To be continued}
-### C++
-C++ (C plus plus), is a programming language in the C family that was made in 1985.  C++ was made with embedded systems and resource restricted systems, as well as larger systems in mind.  C++ is a fully compiled language that runs on the bare metal, which makes it faster than other languages like Python.  
-{To be continued}
+- ### MicroPython
+    MicroPython is a "boiled down" version of [Python 3][9] that only includes a few of the standard libraries, allowing it to run on microcontrollers with just 16kB of RAM.  MicroPython is also different to regular python 3 in the sense that it is a full compiler and runtime and runs on the bare metal.  MicroPython has special machine libraries that allow the user to program at a low level.  In terms of average usabillity, there seems be less documentation and tutorials out there for the various protocols on the ESP32.  MycroPython has the most support on their special PiBoard or the Raspberry Pico.
+- ### C++
+    C++ (C plus plus), is a programming language in the C family that was made in 1985.  C++ was made with embedded systems and resource restricted systems, as well as larger systems in mind.  C++ is a fully compiled language that runs on the bare metal, which makes it faster than other languages like Python.  C++ is the language of choice for tutorials and it has the most documentation on the ESP32.  So, in terms of usabillity, C++ is the obvious choice for this project.
 
 ## Security (Rolling Codes)
 ### Overview
