@@ -64,17 +64,8 @@ In a rolling code system, the key fob stores its current code in memory (C).  Th
 ### Implementing the range finding
 In a modern car, the remote keyless entry (RKE) works by a complex array of antennas in and around the car that can pinpoint the key's exact location, these allow the car to know how close the key is and weather it is inside the car or not.  They also have capacitive touch sensing handles that unlock the car when someone touches it and the key is detected within a certain distance[^7].  For obvious reasons, I cannot equip my system with a complex array of antennas or capacitive touch sensors, so I will be exploring two other possible options; estimating based on the signal strength, or using the time traveled of the wireless signal.  
 
-- ### Using signal strength for distance
-    {to be continued} need to write info here based on stuff below...
-    info on how to do this with math for future my reference: 
-    - [how to calculate distance from wifi router using signal strength](https://stackoverflow.com/questions/11217674/how-to-calculate-distance-from-wifi-router-using-signal-strength)
-    - [get signal strength in dBm on esp32](https://www.esp32.com/viewtopic.php?t=13889)
-    - [some example code in python](https://gist.github.com/cryptolok/516471ce35a9851197b204853c6de080)
-    - [Free Space Path Loss calculator](https://www.everythingrf.com/rf-calculators/free-space-path-loss-calculator)
-    - [What on earth is FSPL](https://en.wikipedia.org/wiki/Free-space_path_loss)
-    VERY math heavy, need to figure out FSPL for an esp32 at an average distance and use that to derive an equation for the distance (in meters) based on signal strength (in dBm).
-
-    If I can write and verify the accuracy of this equation this would be much more reliable and accurate then calculating distance based on signal travel time.
+- ### Using signal strength (Bluetooth RSSI) for distance
+    In this method, the reciever in the car would also be scaning for bluetooth devices as well as connecting to the key by ESP-NOW.  This means that the long range communication would be handled by ESP-NOW but the short range proximity detection would be handled by bluetooth.  This works when the reciever in the car detects any bluetooth device within a specified range (lets say 5 feet) it checks the name and metadata of the device.  If this matches the predefined device id of my phone or some other bluetooth device I authorize in the code, it will send out a signal to the key fob basically saying "are you there."  If the key hears this, it will send the unlock signal with a rolling code.  In terms of security, this is not the best because someone could just spoof a bluetooth device id if they knew the id of my phone.  But since the old car doesn't have any other security messures and this procedure is more complicated than just breaking the windows I don't think this is that big of an issue.  As long as the doors don't just unlock when someone parked next to me accedentilly brings their phone within range it should be alright.
 
 - ### Using time traveled for distance calculation
     This means that both the key fob and the receiver must have very accurately synchronized hardware clocks.  The ESP32 has two available [internal hardware clocks][6]:
