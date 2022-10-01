@@ -137,3 +137,6 @@ void loop() {
 ## Security examples
 ### 3.a rolling code diagram
 ![Rolling code diagram](./assets/rollingcode.png)
+
+### 3.b Bluetooth RSSI:
+[https://www.youtube.com/watch?v=azT2rosEo0k](https://www.youtube.com/watch?v=azT2rosEo0k)

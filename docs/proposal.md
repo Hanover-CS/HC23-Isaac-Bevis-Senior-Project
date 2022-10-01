@@ -72,6 +72,9 @@ In a modern car, the remote keyless entry (RKE) works by a complex array of ante
     
     In this method, the receiver would also serve as a sender and would send out "pings" to the key fob every 10-20 seconds.  When the key fob receives this signal, it will use the time the other ESP32 in the car sent in its message and its own time to determine the distance.  Then if the key decides it is close enough, it will automatically send the unlock signal with the rolling code to the car.
 
+## Presentation
+I will make the presenation on GoogleSlides, it can be viewed with [this link](https://docs.google.com/presentation/d/1Q55QVnxTtiregFfQkkAW8vIw5b9Ym2O5tkcwkZB3JG0/edit?usp=sharing)
+
 
 
 
