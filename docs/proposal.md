@@ -17,7 +17,7 @@ One project I would be pulling ideas from is this [ESP32-Based Smart Bluetooth L
 |                      |          Pico W         |             ESP32           |
 | -------------------- | ----------------------- | --------------------------- |
 | Power Draw           | 0.69 Watts Max          | 0.83 Watts Max              |
-| CPU Clock Speed      | 32bit Dual core @ 133 MHz     | 32bit Dual code @ 240 MHz         |
+| CPU Clock Speed      | 32bit Dual core @ 133 MHz     | 32bit Dual core @ 240 MHz         |
 | RAM and ROM storage  | 264 KiB RAM / 2 MiB ROM | 520KiB RAM / 488 KiB ROM    |
 | Supported Libraries  | WiFi Only               | WiFi, BLE, ESP-NOW          |
 
