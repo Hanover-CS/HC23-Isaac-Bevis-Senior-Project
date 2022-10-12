@@ -75,12 +75,12 @@ In a modern car, the remote keyless entry (RKE) works by a complex array of ante
 
 
 [^1]: No source found because the Pico W is so new, but here is a forum thread where I got some info from [forums.raspberrypi.com](https://forums.raspberrypi.com/viewtopic.php?t=337145)  
-[^2]: (no author listed), ESP32 Board Power Consumption, December 20, 2021. Accessed: 10/1/22, \[Online\] Avaliable: https://therandomwalk.org/wp/esp32-power-consumption/  
-[^3]: Raspberry Pi Org, Raspberry Pi Pico W Datasheet Rev 1.0, June 30, 2022. Accessed: 10/1/22, \[Online\] Avaliable: https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf  
-[^4]: Epressif, ESP32 Series: Datasheet Rev 3.9, March, 2022. Accessed: 10/1/22, \[Online\] Avaliable: https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf  
-[^5]: Marshall Brain, How Remote Entry Works, How Stuff Works, Accessed: 10/1/22, \[Online\] Avaliable: https://auto.howstuffworks.com/remote-entry2.htm  
-[^6]: Cameron Coward, Hacking a Car’s Key Fob with a Rolljam Attack, hackster.io, Accessed: 10/1/22 \[Online\] Avaliable: https://www.hackster.io/news/hacking-a-car-s-key-fob-with-a-rolljam-attack-7f863c10c8da  
-[^7]: Vivek Shah, Proximity keys and other unlocking innovations, carexpert September 25, 2021, Accessed: 10/1/22 \[Online\] Avaliable: https://www.carexpert.com.au/car-news/proximity-keys-and-other-unlocking-innovations
+[^2]: (no author listed), ESP32 Board Power Consumption, December 20, 2021. Accessed: 10/1/22, \[Online\] Available: https://therandomwalk.org/wp/esp32-power-consumption/  
+[^3]: Raspberry Pi Org, Raspberry Pi Pico W Datasheet Rev 1.0, June 30, 2022. Accessed: 10/1/22, \[Online\] Available: https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf  
+[^4]: Espressif, ESP32 Series: Datasheet Rev 3.9, March, 2022. Accessed: 10/1/22, \[Online\] Available: https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf  
+[^5]: Marshall Brain, How Remote Entry Works, How Stuff Works, Accessed: 10/1/22, \[Online\] Available: https://auto.howstuffworks.com/remote-entry2.htm  
+[^6]: Cameron Coward, Hacking a Car’s Key Fob with a Rolljam Attack, hackster.io, Accessed: 10/1/22 \[Online\] Available: https://www.hackster.io/news/hacking-a-car-s-key-fob-with-a-rolljam-attack-7f863c10c8da  
+[^7]: Vivek Shah, Proximity keys and other unlocking innovations, carexpert September 25, 2021, Accessed: 10/1/22 \[Online\] Available: https://www.carexpert.com.au/car-news/proximity-keys-and-other-unlocking-innovations
 
 [1]: https://github.com/fryefryefrye/Open-Source-RKS "Open Source Remote Keyless System"
 [2]: https://www.electronicsforu.com/electronics-projects/hardware-diy/esp32cam-based-smart-bluetooth-lock "Smart Bluetooth Lock using ESP32"
