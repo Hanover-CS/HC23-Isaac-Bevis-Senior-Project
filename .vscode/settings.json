@@ -3,5 +3,6 @@
         "microcontrollers",
         "Pico",
         "RFID"
-    ]
+    ],
+    "C_Cpp.errorSquiggles": "Disabled"
 }
