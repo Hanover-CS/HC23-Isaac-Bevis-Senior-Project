@@ -1,7 +1,0 @@
-/home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles/rollingCodeTests.dir
-/home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles/edit_cache.dir
-/home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles/rebuild_cache.dir
-/home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest/CMakeFiles/gtest.dir
-/home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest/CMakeFiles/gtest_main.dir
-/home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest/CMakeFiles/edit_cache.dir
-/home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest/CMakeFiles/rebuild_cache.dir
