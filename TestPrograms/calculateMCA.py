@@ -47,7 +47,10 @@ for i in range (1, 10000):
                 b = False
                 break
         if (b):
-            options_a.append(i)
+            if (m % 4 == 0 and i % 4 == 0):
+                options_a.append(i)
+            elif (m % 4 != 0 and i % 4 != 0):
+                options_a.append(i)
             
     p_ = round((i/10000)*100)
     print(f"\r{p_}% complete...", end="\r")
@@ -58,7 +61,7 @@ print()
 t1 = randint(1, len(options_a))
 r_a = options_a[t1]
 t2 = randint(1, len(options_c))
-r_c = options_a[t2]
+r_c = options_c[t2]
 print(f"m = {m}\nc = {r_c}\na = {r_a}")
 
 

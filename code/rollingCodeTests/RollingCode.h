@@ -27,9 +27,9 @@ class RollingCode
    unsigned long c;
 
    public: RollingCode(unsigned long s, 
-                     unsigned long M=3661403847, 
-                     unsigned long A=1368, 
-                     unsigned long C=8526) {
+                     unsigned long M=4152143978, 
+                     unsigned long A=9554, 
+                     unsigned long C=5903) {
       seed = s;
       m = M;
       a = A;
