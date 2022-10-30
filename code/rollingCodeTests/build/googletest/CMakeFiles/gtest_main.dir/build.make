@@ -44,19 +44,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/3.24.2/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/3.24.2/bin/cmake -E rm -f
+RM = /usr/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests
+CMAKE_SOURCE_DIR = /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build
+CMAKE_BINARY_DIR = /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build
 
 # Include any dependencies generated for this target.
 include googletest/CMakeFiles/gtest_main.dir/depend.make
@@ -70,18 +70,18 @@ include googletest/CMakeFiles/gtest_main.dir/progress.make
 include googletest/CMakeFiles/gtest_main.dir/flags.make
 
 googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o: googletest/CMakeFiles/gtest_main.dir/flags.make
-googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o: /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/googletest/src/gtest_main.cc
+googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o: /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/googletest/src/gtest_main.cc
 googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o: googletest/CMakeFiles/gtest_main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -MF CMakeFiles/gtest_main.dir/src/gtest_main.cc.o.d -o CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/googletest/src/gtest_main.cc
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -MF CMakeFiles/gtest_main.dir/src/gtest_main.cc.o.d -o CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/googletest/src/gtest_main.cc
 
 googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gtest_main.dir/src/gtest_main.cc.i"
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/googletest/src/gtest_main.cc > CMakeFiles/gtest_main.dir/src/gtest_main.cc.i
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/googletest/src/gtest_main.cc > CMakeFiles/gtest_main.dir/src/gtest_main.cc.i
 
 googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gtest_main.dir/src/gtest_main.cc.s"
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/googletest/src/gtest_main.cc -o CMakeFiles/gtest_main.dir/src/gtest_main.cc.s
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/googletest/src/gtest_main.cc -o CMakeFiles/gtest_main.dir/src/gtest_main.cc.s
 
 # Object files for target gtest_main
 gtest_main_OBJECTS = \
@@ -93,19 +93,19 @@ gtest_main_EXTERNAL_OBJECTS =
 lib/libgtest_main.a: googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o
 lib/libgtest_main.a: googletest/CMakeFiles/gtest_main.dir/build.make
 lib/libgtest_main.a: googletest/CMakeFiles/gtest_main.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library ../lib/libgtest_main.a"
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest && $(CMAKE_COMMAND) -P CMakeFiles/gtest_main.dir/cmake_clean_target.cmake
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gtest_main.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX static library ../lib/libgtest_main.a"
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest && $(CMAKE_COMMAND) -P CMakeFiles/gtest_main.dir/cmake_clean_target.cmake
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gtest_main.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 googletest/CMakeFiles/gtest_main.dir/build: lib/libgtest_main.a
 .PHONY : googletest/CMakeFiles/gtest_main.dir/build
 
 googletest/CMakeFiles/gtest_main.dir/clean:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest && $(CMAKE_COMMAND) -P CMakeFiles/gtest_main.dir/cmake_clean.cmake
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest && $(CMAKE_COMMAND) -P CMakeFiles/gtest_main.dir/cmake_clean.cmake
 .PHONY : googletest/CMakeFiles/gtest_main.dir/clean
 
 googletest/CMakeFiles/gtest_main.dir/depend:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/googletest /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest/CMakeFiles/gtest_main.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/googletest /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest/CMakeFiles/gtest_main.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : googletest/CMakeFiles/gtest_main.dir/depend
 

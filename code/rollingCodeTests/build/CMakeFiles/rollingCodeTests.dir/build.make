@@ -44,19 +44,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/3.24.2/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/3.24.2/bin/cmake -E rm -f
+RM = /usr/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests
+CMAKE_SOURCE_DIR = /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build
+CMAKE_BINARY_DIR = /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/rollingCodeTests.dir/depend.make
@@ -70,18 +70,18 @@ include CMakeFiles/rollingCodeTests.dir/progress.make
 include CMakeFiles/rollingCodeTests.dir/flags.make
 
 CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.o: CMakeFiles/rollingCodeTests.dir/flags.make
-CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.o: /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/rollingCodeTests.cpp
+CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.o: /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/rollingCodeTests.cpp
 CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.o: CMakeFiles/rollingCodeTests.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.o -MF CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.o.d -o CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.o -c /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/rollingCodeTests.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.o -MF CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.o.d -o CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.o -c /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/rollingCodeTests.cpp
 
 CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/rollingCodeTests.cpp > CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/rollingCodeTests.cpp > CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.i
 
 CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/rollingCodeTests.cpp -o CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/rollingCodeTests.cpp -o CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.s
 
 # Object files for target rollingCodeTests
 rollingCodeTests_OBJECTS = \
@@ -94,7 +94,7 @@ rollingCodeTests: CMakeFiles/rollingCodeTests.dir/rollingCodeTests.cpp.o
 rollingCodeTests: CMakeFiles/rollingCodeTests.dir/build.make
 rollingCodeTests: lib/libgtest.a
 rollingCodeTests: CMakeFiles/rollingCodeTests.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable rollingCodeTests"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable rollingCodeTests"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/rollingCodeTests.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -106,6 +106,6 @@ CMakeFiles/rollingCodeTests.dir/clean:
 .PHONY : CMakeFiles/rollingCodeTests.dir/clean
 
 CMakeFiles/rollingCodeTests.dir/depend:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles/rollingCodeTests.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles/rollingCodeTests.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/rollingCodeTests.dir/depend
 

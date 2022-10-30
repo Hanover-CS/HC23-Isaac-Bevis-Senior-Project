@@ -48,19 +48,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/3.24.2/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/3.24.2/bin/cmake -E rm -f
+RM = /usr/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests
+CMAKE_SOURCE_DIR = /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build
+CMAKE_BINARY_DIR = /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/local/Cellar/cmake/3.24.2/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,7 +78,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/local/Cellar/cmake/3.24.2/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -87,14 +87,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest//CMakeFiles/progress.marks
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletest/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles 0
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/googletest//CMakeFiles/progress.marks
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletest/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletest/clean
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletest/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,22 +103,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletest/preinstall
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletest/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletest/preinstall
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletest/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 googletest/CMakeFiles/gtest.dir/rule:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletest/CMakeFiles/gtest.dir/rule
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletest/CMakeFiles/gtest.dir/rule
 .PHONY : googletest/CMakeFiles/gtest.dir/rule
 
 # Convenience name for target.
@@ -127,12 +127,12 @@ gtest: googletest/CMakeFiles/gtest.dir/rule
 
 # fast build rule for target.
 gtest/fast:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest.dir/build.make googletest/CMakeFiles/gtest.dir/build
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest.dir/build.make googletest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
 
 # Convenience name for target.
 googletest/CMakeFiles/gtest_main.dir/rule:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletest/CMakeFiles/gtest_main.dir/rule
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 googletest/CMakeFiles/gtest_main.dir/rule
 .PHONY : googletest/CMakeFiles/gtest_main.dir/rule
 
 # Convenience name for target.
@@ -141,7 +141,7 @@ gtest_main: googletest/CMakeFiles/gtest_main.dir/rule
 
 # fast build rule for target.
 gtest_main/fast:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest_main.dir/build.make googletest/CMakeFiles/gtest_main.dir/build
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest_main.dir/build.make googletest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
 src/gtest-all.o: src/gtest-all.cc.o
@@ -149,7 +149,7 @@ src/gtest-all.o: src/gtest-all.cc.o
 
 # target to build an object file
 src/gtest-all.cc.o:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest.dir/build.make googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest.dir/build.make googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o
 .PHONY : src/gtest-all.cc.o
 
 src/gtest-all.i: src/gtest-all.cc.i
@@ -157,7 +157,7 @@ src/gtest-all.i: src/gtest-all.cc.i
 
 # target to preprocess a source file
 src/gtest-all.cc.i:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest.dir/build.make googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.i
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest.dir/build.make googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.i
 .PHONY : src/gtest-all.cc.i
 
 src/gtest-all.s: src/gtest-all.cc.s
@@ -165,7 +165,7 @@ src/gtest-all.s: src/gtest-all.cc.s
 
 # target to generate assembly for a file
 src/gtest-all.cc.s:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest.dir/build.make googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.s
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest.dir/build.make googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.s
 .PHONY : src/gtest-all.cc.s
 
 src/gtest_main.o: src/gtest_main.cc.o
@@ -173,7 +173,7 @@ src/gtest_main.o: src/gtest_main.cc.o
 
 # target to build an object file
 src/gtest_main.cc.o:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest_main.dir/build.make googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest_main.dir/build.make googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o
 .PHONY : src/gtest_main.cc.o
 
 src/gtest_main.i: src/gtest_main.cc.i
@@ -181,7 +181,7 @@ src/gtest_main.i: src/gtest_main.cc.i
 
 # target to preprocess a source file
 src/gtest_main.cc.i:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest_main.dir/build.make googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.i
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest_main.dir/build.make googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.i
 .PHONY : src/gtest_main.cc.i
 
 src/gtest_main.s: src/gtest_main.cc.s
@@ -189,7 +189,7 @@ src/gtest_main.s: src/gtest_main.cc.s
 
 # target to generate assembly for a file
 src/gtest_main.cc.s:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest_main.dir/build.make googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.s
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(MAKE) $(MAKESILENT) -f googletest/CMakeFiles/gtest_main.dir/build.make googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.s
 .PHONY : src/gtest_main.cc.s
 
 # Help Target
@@ -219,6 +219,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/isaac/Documents/CS461/HC23-Isaac-Bevis-Senior-Project/code/rollingCodeTests/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
