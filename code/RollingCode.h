@@ -26,6 +26,9 @@ class RollingCode
    unsigned long a;
    unsigned long c;
 
+   // Constructor
+   // Creates rolling code with seed s using the Linear congruential generator
+   //       that uses M A and C
    public: RollingCode(unsigned long s, 
                      unsigned long M=4152143978, 
                      unsigned long A=9554, 
@@ -64,6 +67,8 @@ class RollingCode
       return false;
    }
 
+   // function getSeed
+   // returns: the current seed of this rolling code
    public: unsigned long getSeed() {
       return seed;
    }
