@@ -65,7 +65,4 @@ r_c = options_c[t2]
 print(f"m = {m}\nc = {r_c}\na = {r_a}")
 
 
-            
-            
-    
-    
+
