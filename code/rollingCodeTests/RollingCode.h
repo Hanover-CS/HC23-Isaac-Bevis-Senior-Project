@@ -36,12 +36,35 @@ class RollingCode
       c = C;
    }
 
-   public: unsigned long next(){
+   // function next
+   // returns: the next code in the pseudo-random sequence
+   // Post Condition: seed has been updated to the next code
+   public: unsigned long next() {
       seed = (a * seed + c) % m;
       return seed;
    }
 
-   public: unsigned long getSeed(){
+   // function matches
+   // input: a unsigned long representing the code to be compared to
+   // returns: true or false depending on if the code matches one of the next
+   //       100 codes in the pseudo-random sequence
+   // Post condition: seed has been updated to the matched code
+   //       so that de-synced codes can be re-synced
+   public: bool matches(unsigned long code) {
+      // create temp code at same location in pseudo-random sequence
+      //       so that seed is only modified if the code matches
+      RollingCode tempCode = RollingCode(seed, m, a, c); 
+      for (int i=0; i<=100; i++){
+         if (tempCode.getSeed() == code) {
+            seed = tempCode.getSeed();
+            return true;
+         }
+         tempCode.next();
+      }
+      return false;
+   }
+
+   public: unsigned long getSeed() {
       return seed;
    }
    
