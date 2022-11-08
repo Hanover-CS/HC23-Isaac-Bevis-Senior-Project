@@ -1,4 +1,17 @@
-// define namespace
+   /*
+   RollingCode.h
+   Defines the RollingCode Class that can be used to generate random codes for key-lock verification
+   Using Linear congruential generator algorithm
+   Where X[n+1] = (a * X[n] + c) % m
+         m, 0 < m -- the "modulus"
+         a, 0 < a < m -- the "multiplier"
+         c, 0 <= c < m -- the "increment"
+         X[0], 0 <= X[0] < m -- the start value (starting seed)
+   This uses the popular c != 0 method where 
+      m and c are relatively prime, 
+      and a-1 is divisible by all prime factors of m,
+      and a-1 is divisible by 4 if m is.
+   */
 
 #ifndef BEVIS_ROLLINGCODES
 #define BEVIS_ROLLINGCODES
@@ -7,18 +20,9 @@ namespace bevis_FinalProject
 {
 class RollingCode 
 {
-   /*
-   Using Linear congruential generator algorithm
-   Where X[n+1] = (a * X[n] + c) % m
-         m, 0 < m -- the "modulus"
-         a, 0 < a < m -- the "multiplier"
-         c, 0 <= c < m -- the "increment"
-         X[0], 0 <= X[0] < m -- the start value (the seed)
-   This uses the popular c != 0 method where 
-      m and c are relatively prime, 
-      and a-1 is divisible by all prime factors of m,
-      and a-1 is divisible by 4 if m is.
-   */
+
+   const int SEARCH_LIMIT = 100;
+
    unsigned long seed;
 
    // default values calculated using TestPrograms/calculateMCA.py
@@ -57,7 +61,7 @@ class RollingCode
       // create temp code at same location in pseudo-random sequence
       //       so that seed is only modified if the code matches
       RollingCode tempCode = RollingCode(seed, m, a, c); 
-      for (int i=0; i<=100; i++){
+      for (int i=0; i<=SEARCH_LIMIT; i++){
          if (tempCode.getSeed() == code) {
             seed = tempCode.getSeed();
             return true;
