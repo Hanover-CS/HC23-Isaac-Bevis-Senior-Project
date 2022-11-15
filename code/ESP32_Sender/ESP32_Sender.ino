@@ -74,6 +74,21 @@ void loop() {
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
   }
 
+  else if (cmd == "T") {
+    struct timeval tv_now;
+    gettimeofday(&tv_now, NULL);
+    int64_t time_sec = (int64_t)tv_now.tv_sec * 1000000L + (int64_t)tv_now.tv_usec;
+
+
+    Serial.print("Current tv_now.tv_usec is: ");
+    Serial.println((int64_t)tv_now.tv_usec);
+    Serial.print("Current tv_now.tv_sec is: ");
+    Serial.println((int64_t)tv_now.tv_sec);
+    Serial.print("Current time is: ");
+    Serial.println(time_sec);
+    Serial.println();
+  }
+
 }
 
 // callback for when data is sent
