@@ -89,6 +89,18 @@ void loop() {
     Serial.println();
   }
 
+  else if (cmd == "T2") {
+    time_t now;
+    char strftime_buf[64];
+    struct tm timeinfo;
+    time(&now);
+
+    localtime_r(&now, &timeinfo);
+    strftime(strftime_buf, sizeof(strftime_buf), "%c", &timeinfo);
+    Serial.print("Current time is: ");
+    Serial.println(strftime_buf);
+  }
+
 }
 
 // callback for when data is sent
