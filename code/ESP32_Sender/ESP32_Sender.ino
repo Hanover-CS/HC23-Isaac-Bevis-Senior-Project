@@ -17,7 +17,7 @@ RollingCode rollingCode = RollingCode(237461); // seed of 237461 with default m,
 
 // Structure to send data
 typedef struct struct_message {
-    String a;  // placeholder for system time to implement later
+    int64_t time; 
     unsigned long rollingCode;
     byte action;
 };
@@ -42,7 +42,7 @@ void setup() {
   // Register a peer
   memcpy(peerInfo.peer_addr, broadcastAddress, 6);
   peerInfo.channel = 0;
-  peerInfo.encrypt = false;  // NOTE: ESP-NOW messages can be encrypted
+  peerInfo.encrypt = false;
 
   // Add the peer
   if (esp_now_add_peer(&peerInfo) != ESP_OK) {
@@ -57,7 +57,7 @@ void loop() {
   if (cmd == "L") {
     Serial.print("Sending...");
     rollingCode.next();
-    message.a = "stub";
+    message.time = 0;
     message.rollingCode = rollingCode.getSeed();
     message.action = LOCK_SIGNAL;
 
@@ -67,7 +67,7 @@ void loop() {
   else if (cmd == "U") {
     Serial.print("Sending...");
     rollingCode.next();
-    message.a = "stub";
+    message.time = 0;
     message.rollingCode = rollingCode.getSeed();
     message.action = UNLOCK_SIGNAL;
 

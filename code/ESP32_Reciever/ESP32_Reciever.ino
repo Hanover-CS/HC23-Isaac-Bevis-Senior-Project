@@ -12,7 +12,7 @@ RollingCode rollingCode = RollingCode(237461); // seed of 237461 with default m,
 
 // Structure to send data
 typedef struct struct_message {
-    String a;  // placeholder for system time to implement later
+    int64_t time;
     unsigned long rollingCode;
     byte action;
 };
@@ -45,8 +45,8 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
   memcpy(&message, incomingData, sizeof(message));
   Serial.print("Bytes received: ");
   Serial.println(len);
-  Serial.print("Message: ");
-  Serial.println(message.a);
+  Serial.print("Time: ");
+  Serial.println(message.time);
   Serial.print("Rolling code: ");
   Serial.println(message.rollingCode);
   Serial.print("Action: ");
