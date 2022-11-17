@@ -5,8 +5,8 @@
 
 using namespace bevis_FinalProject;
 
-byte UNLOCK_SIGNAL = 0;
-byte LOCK_SIGNAL = 1;
+const byte UNLOCK_SIGNAL = 0;
+const byte LOCK_SIGNAL = 1;
 
 RollingCode rollingCode = RollingCode(237461); // seed of 237461 with default m, a, and c values
 
@@ -52,11 +52,17 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
   Serial.print("Action: ");
   Serial.println(message.action);
 
-  if (rollingCode.matches(message.rollingCode) && message.action == LOCK_SIGNAL){
-    digitalWrite(ONBOARD_LED, HIGH);
-  }
-  else if (rollingCode.matches(message.rollingCode) && message.action == UNLOCK_SIGNAL){
-    digitalWrite(ONBOARD_LED, LOW);
+  if (rollingCode.matches(message.rollingCode)) {
+    switch(message.action) {
+      case LOCK_SIGNAL:
+        digitalWrite(ONBOARD_LED, HIGH);
+        break;
+      case UNLOCK_SIGNAL:
+        digitalWrite(ONBOARD_LED, LOW);
+        break;
+      default:
+        break;
+    }
   }
 }
 
