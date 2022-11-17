@@ -15,9 +15,11 @@ byte LOCK_SIGNAL = 1;
 
 RollingCode rollingCode = RollingCode(237461); // seed of 237461 with default m, a, and c values
 
+struct timeval tv_now; // time val for storing time in microseconds since power-on
+
 // Structure to send data
 typedef struct struct_message {
-    int64_t time; 
+    struct timeval tv_now;
     unsigned long rollingCode;
     byte action;
 };
@@ -57,7 +59,9 @@ void loop() {
   if (cmd == "L") {
     Serial.print("Sending...");
     rollingCode.next();
-    message.time = 0;
+    gettimeofday(&tv_now, NULL);
+
+    message.tv_now = tv_now;
     message.rollingCode = rollingCode.getSeed();
     message.action = LOCK_SIGNAL;
 
@@ -67,7 +71,9 @@ void loop() {
   else if (cmd == "U") {
     Serial.print("Sending...");
     rollingCode.next();
-    message.time = 0;
+    gettimeofday(&tv_now, NULL);
+
+    message.tv_now = tv_now;
     message.rollingCode = rollingCode.getSeed();
     message.action = UNLOCK_SIGNAL;
 
@@ -75,7 +81,6 @@ void loop() {
   }
 
   else if (cmd == "T") {
-    struct timeval tv_now;
     gettimeofday(&tv_now, NULL);
     int64_t time_sec = (int64_t)tv_now.tv_sec * 1000000L + (int64_t)tv_now.tv_usec;
 
