@@ -8,10 +8,18 @@ using namespace bevis_FinalProject;
 //    1: 94:B5:55:2D:35:BC
 //    2: 94:B5:55:26:44:B8
 
+// ********** For serial debugging ************
+bool S_DEBUG = true;
+
 esp_now_peer_info_t peerInfo;
 
 byte UNLOCK_SIGNAL = 0;
 byte LOCK_SIGNAL = 1;
+
+int LKBTTN = 21;
+int UNLKBTTN = 35;
+int LKBTTNSTATE;
+int UNLKBTTNSTATE;
 
 RollingCode rollingCode = RollingCode(237461); // seed of 237461 with default m, a, and c values
 
@@ -51,13 +59,21 @@ void setup() {
     Serial.println("Failed to add peer");
     return;
   }
+
+  // initialize pins 21 and 35 for buttons
+  pinMode(LKBTTN, INPUT);
+  pinMode(UNLKBTTN, INPUT);
 }
 
 void loop() {
-  // Stand in for button
-  String cmd = Serial.readString();
-  if (cmd == "L") {
-    Serial.print("Sending...");
+  int lkBttnSt = digitalRead(LKBTTN);
+  int unlkBttnSt = digitalRead(UNLKBTTN);
+  Serial.print("unlock button state: ");
+  Serial.println(unlkBttnSt);
+
+  if (lkBttnSt == HIGH && lkBttnSt != LKBTTNSTATE) {
+    LKBTTNSTATE = lkBttnSt;
+    Serial.print("Sending... lock signal from button");
     rollingCode.next();
     gettimeofday(&tv_now, NULL);
 
@@ -67,9 +83,13 @@ void loop() {
 
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
   }
+  else if (lkBttnSt == LOW && lkBttnSt != LKBTTNSTATE) {
+    LKBTTNSTATE = lkBttnSt;
+  }
 
-  else if (cmd == "U") {
-    Serial.print("Sending...");
+  if (unlkBttnSt == HIGH && unlkBttnSt != UNLKBTTNSTATE) {
+    UNLKBTTNSTATE = unlkBttnSt;
+    Serial.print("Sending... unlock signal from button");
     rollingCode.next();
     gettimeofday(&tv_now, NULL);
 
@@ -79,31 +99,62 @@ void loop() {
 
     esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
   }
-
-  else if (cmd == "T") {
-    gettimeofday(&tv_now, NULL);
-    int64_t time_sec = (int64_t)tv_now.tv_sec * 1000000L + (int64_t)tv_now.tv_usec;
-
-
-    Serial.print("Current tv_now.tv_usec is: ");
-    Serial.println((int64_t)tv_now.tv_usec);
-    Serial.print("Current tv_now.tv_sec is: ");
-    Serial.println((int64_t)tv_now.tv_sec);
-    Serial.print("Current time is: ");
-    Serial.println(time_sec);
-    Serial.println();
+  else if (unlkBttnSt == LOW && unlkBttnSt != UNLKBTTNSTATE) {
+    UNLKBTTNSTATE = unlkBttnSt;
   }
 
-  else if (cmd == "T2") {
-    time_t now;
-    char strftime_buf[64];
-    struct tm timeinfo;
-    time(&now);
-
-    localtime_r(&now, &timeinfo);
-    strftime(strftime_buf, sizeof(strftime_buf), "%c", &timeinfo);
-    Serial.print("Current time is: ");
-    Serial.println(strftime_buf);
+  // ********* For Serial Debugging *******
+  if (S_DEBUG){
+    String cmd = Serial.readString();
+    if (cmd == "L") {
+      Serial.print("Sending...");
+      rollingCode.next();
+      gettimeofday(&tv_now, NULL);
+  
+      message.tv_now = tv_now;
+      message.rollingCode = rollingCode.getSeed();
+      message.action = LOCK_SIGNAL;
+  
+      esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
+    }
+  
+    else if (cmd == "U") {
+      Serial.print("Sending...");
+      rollingCode.next();
+      gettimeofday(&tv_now, NULL);
+  
+      message.tv_now = tv_now;
+      message.rollingCode = rollingCode.getSeed();
+      message.action = UNLOCK_SIGNAL;
+  
+      esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
+    }
+  
+    else if (cmd == "T") {
+      gettimeofday(&tv_now, NULL);
+      int64_t time_sec = (int64_t)tv_now.tv_sec * 1000000L + (int64_t)tv_now.tv_usec;
+  
+  
+      Serial.print("Current tv_now.tv_usec is: ");
+      Serial.println((int64_t)tv_now.tv_usec);
+      Serial.print("Current tv_now.tv_sec is: ");
+      Serial.println((int64_t)tv_now.tv_sec);
+      Serial.print("Current time is: ");
+      Serial.println(time_sec);
+      Serial.println();
+    }
+  
+    else if (cmd == "T2") {
+      time_t now;
+      char strftime_buf[64];
+      struct tm timeinfo;
+      time(&now);
+  
+      localtime_r(&now, &timeinfo);
+      strftime(strftime_buf, sizeof(strftime_buf), "%c", &timeinfo);
+      Serial.print("Current time is: ");
+      Serial.println(strftime_buf);
+    }
   }
 
 }
