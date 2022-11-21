@@ -1,25 +1,30 @@
+/*
+  ESP32_Sender.ino
+  Microcontroller code for the keyfob unit
+  Sends unlock and lock signals via ESP-NOW to receiver
+  Allows for hardware buttons
+*/
+
+// NOTE: MAC addresses:
+//    1: 94:B5:55:2D:35:BC
+//    2: 94:B5:55:26:44:B8
+
 #include <esp_now.h>
 #include <WiFi.h>
 #include "RollingCode.h"
 
 using namespace bevis_FinalProject;
 
-// NOTE: MAC addresses:
-//    1: 94:B5:55:2D:35:BC
-//    2: 94:B5:55:26:44:B8
-
-// ********** For serial debugging ************
+// ********** Global Variables ************
 bool S_DEBUG = true;
-
-esp_now_peer_info_t peerInfo;
-
-byte UNLOCK_SIGNAL = 0;
-byte LOCK_SIGNAL = 1;
-
 int LKBTTN = 21;
 int UNLKBTTN = 35;
 int LKBTTNSTATE;
 int UNLKBTTNSTATE;
+byte UNLOCK_SIGNAL = 0;
+byte LOCK_SIGNAL = 1;
+
+esp_now_peer_info_t peerInfo;
 
 RollingCode rollingCode = RollingCode(237461); // seed of 237461 with default m, a, and c values
 

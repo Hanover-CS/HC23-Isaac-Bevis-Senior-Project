@@ -1,3 +1,11 @@
+/*
+  ESP32_Reciever.ino
+  Microcontroller code for the reciever unit
+  Recieves unlock and lock signals via ESP-NOW
+  Acts on these signals by locking or unlocking a car 
+    door via servo motors
+*/
+
 #include <esp_now.h>
 #include <WiFi.h>
 #include "RollingCode.h"
