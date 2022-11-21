@@ -9,12 +9,12 @@
 #include <esp_now.h>
 #include <WiFi.h>
 #include "RollingCode.h"
-#define ONBOARD_LED  2
+
+#define ONBOARD_LED 2
+#define UNLOCK_SIGNAL 0
+#define LOCK_SIGNAL 1
 
 using namespace bevis_FinalProject;
-
-const byte UNLOCK_SIGNAL = 0;
-const byte LOCK_SIGNAL = 1;
 
 RollingCode rollingCode = RollingCode(237461); // seed of 237461 with default m, a, and c values
 

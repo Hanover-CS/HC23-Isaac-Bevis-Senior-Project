@@ -13,21 +13,18 @@
 #include <WiFi.h>
 #include "RollingCode.h"
 
+#define S_DEBUG true
+#define LKBTTN 21
+#define UNLKBTTN 35
+#define UNLOCK_SIGNAL 0
+#define LOCK_SIGNAL 1
+
 using namespace bevis_FinalProject;
 
-// ********** Global Variables ************
-bool S_DEBUG = true;
-int LKBTTN = 21;
-int UNLKBTTN = 35;
 int LKBTTNSTATE;
 int UNLKBTTNSTATE;
-byte UNLOCK_SIGNAL = 0;
-byte LOCK_SIGNAL = 1;
-
 esp_now_peer_info_t peerInfo;
-
 RollingCode rollingCode = RollingCode(237461); // seed of 237461 with default m, a, and c values
-
 struct timeval tv_now; // time val for storing time in microseconds since power-on
 
 // Structure to send data
@@ -78,15 +75,7 @@ void loop() {
 
   if (lkBttnSt == HIGH && lkBttnSt != LKBTTNSTATE) {
     LKBTTNSTATE = lkBttnSt;
-    Serial.print("Sending... lock signal from button");
-    rollingCode.next();
-    gettimeofday(&tv_now, NULL);
-
-    message.tv_now = tv_now;
-    message.rollingCode = rollingCode.getSeed();
-    message.action = LOCK_SIGNAL;
-
-    esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
+    sendLockSignal();
   }
   else if (lkBttnSt == LOW && lkBttnSt != LKBTTNSTATE) {
     LKBTTNSTATE = lkBttnSt;
@@ -94,15 +83,7 @@ void loop() {
 
   if (unlkBttnSt == HIGH && unlkBttnSt != UNLKBTTNSTATE) {
     UNLKBTTNSTATE = unlkBttnSt;
-    Serial.print("Sending... unlock signal from button");
-    rollingCode.next();
-    gettimeofday(&tv_now, NULL);
-
-    message.tv_now = tv_now;
-    message.rollingCode = rollingCode.getSeed();
-    message.action = UNLOCK_SIGNAL;
-
-    esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
+    sendUnlockSignal();
   }
   else if (unlkBttnSt == LOW && unlkBttnSt != UNLKBTTNSTATE) {
     UNLKBTTNSTATE = unlkBttnSt;
@@ -112,27 +93,17 @@ void loop() {
   if (S_DEBUG){
     String cmd = Serial.readString();
     if (cmd == "L") {
-      Serial.print("Sending...");
-      rollingCode.next();
-      gettimeofday(&tv_now, NULL);
-  
-      message.tv_now = tv_now;
-      message.rollingCode = rollingCode.getSeed();
-      message.action = LOCK_SIGNAL;
-  
-      esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
+      Serial.println("Sending via debug");
+      esp_err_t result = sendLockSignal();
+      Serial.print("Result = ");
+      Serial.println(result);
     }
   
     else if (cmd == "U") {
-      Serial.print("Sending...");
-      rollingCode.next();
-      gettimeofday(&tv_now, NULL);
-  
-      message.tv_now = tv_now;
-      message.rollingCode = rollingCode.getSeed();
-      message.action = UNLOCK_SIGNAL;
-  
-      esp_err_t result = esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
+      Serial.print("Sending via debug");
+      esp_err_t result = sendUnlockSignal();
+      Serial.print("Result = ");
+      Serial.println(result);
     }
   
     else if (cmd == "T") {
@@ -162,6 +133,28 @@ void loop() {
     }
   }
 
+}
+
+esp_err_t sendLockSignal() {
+  rollingCode.next();
+  gettimeofday(&tv_now, NULL);
+
+  message.tv_now = tv_now;
+  message.rollingCode = rollingCode.getSeed();
+  message.action = LOCK_SIGNAL;
+
+  return esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
+}
+
+esp_err_t sendUnlockSignal() {
+  rollingCode.next();
+  gettimeofday(&tv_now, NULL);
+
+  message.tv_now = tv_now;
+  message.rollingCode = rollingCode.getSeed();
+  message.action = UNLOCK_SIGNAL;
+
+  return esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
 }
 
 // callback for when data is sent
