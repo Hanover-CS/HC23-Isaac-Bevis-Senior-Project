@@ -81,6 +81,7 @@ void loop() {
   }
   else if (lkBttnSt == LOW && lkBttnSt != LKBTTNSTATE) {
     LKBTTNSTATE = lkBttnSt;
+    sleep(1);
   }
 
   if (unlkBttnSt == HIGH && unlkBttnSt != UNLKBTTNSTATE) {
@@ -89,6 +90,7 @@ void loop() {
   }
   else if (unlkBttnSt == LOW && unlkBttnSt != UNLKBTTNSTATE) {
     UNLKBTTNSTATE = unlkBttnSt;
+    sleep(1);
   }
 
   // ********* For Serial Debugging *******
