@@ -11,6 +11,8 @@
 #include "RollingCode.h"
 
 #define ONBOARD_LED 2
+#define LOCK_LED 18
+#define UNLOCK_LED 32
 #define UNLOCK_SIGNAL 0
 #define LOCK_SIGNAL 1
 
@@ -34,6 +36,8 @@ void setup() {
   // Set device as a Wi-Fi Station
   WiFi.mode(WIFI_STA);
   pinMode(ONBOARD_LED, OUTPUT);
+  pinMode(LOCK_LED, OUTPUT);
+  pinMode(UNLOCK_LED, OUTPUT);
 
   // Init ESP-NOW
   if (esp_now_init() != ESP_OK) {
@@ -84,9 +88,13 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
     switch(message.action) {
       case LOCK_SIGNAL:
         digitalWrite(ONBOARD_LED, HIGH);
+        digitalWrite(LOCK_LED, HIGH);
+        digitalWrite(UNLOCK_LED, LOW);
         break;
       case UNLOCK_SIGNAL:
         digitalWrite(ONBOARD_LED, LOW);
+        digitalWrite(LOCK_LED, LOW);
+        digitalWrite(UNLOCK_LED, HIGH);
         break;
       default:
         break;
