@@ -1,6 +1,6 @@
 /*
   ESP32_Sender.ino
-  Microcontroller code for the keyfob unit
+  Microcontrollers code for the key fob unit
   Sends unlock and lock signals via ESP-NOW to receiver
   Allows for hardware buttons
 */
@@ -13,7 +13,7 @@
 #include <WiFi.h>
 #include "RollingCode.h"
 
-#define S_DEBUG true
+#define S_DEBUG false
 #define LKBTTN 21
 #define UNLKBTTN 35
 #define UNLOCK_SIGNAL 0
@@ -72,6 +72,8 @@ void loop() {
   int unlkBttnSt = digitalRead(UNLKBTTN);
   Serial.print("unlock button state: ");
   Serial.println(unlkBttnSt);
+  Serial.print("lock button state: ");
+  Serial.println(lkBttnSt);
 
   if (lkBttnSt == HIGH && lkBttnSt != LKBTTNSTATE) {
     LKBTTNSTATE = lkBttnSt;
