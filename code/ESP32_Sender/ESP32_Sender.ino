@@ -13,7 +13,7 @@
 #include <WiFi.h>
 #include "RollingCode.h"
 
-#define S_DEBUG false
+#define S_DEBUG true
 #define LKBTTN 21
 #define UNLKBTTN 35
 #define UNLOCK_SIGNAL 0
@@ -70,6 +70,8 @@ void setup() {
 void loop() {
   int lkBttnSt = digitalRead(LKBTTN);
   int unlkBttnSt = digitalRead(UNLKBTTN);
+  // int lkBttnSt = 0;
+  // int unlkBttnSt = 0;
   Serial.print("unlock button state: ");
   Serial.println(unlkBttnSt);
   Serial.print("lock button state: ");
