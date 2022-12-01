@@ -30,8 +30,14 @@ typedef struct struct_message {
 };
 struct_message message;
 
+enum LK_State{Lock, Unlock};
+LK_State state;
+
 void setup() {
   Serial.begin(115200);
+
+  state = Unlock;
+  updateLockState();
   
   // Set device as a Wi-Fi Station
   WiFi.mode(WIFI_STA);
@@ -52,6 +58,23 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
+}
+
+void updateLockState() {
+  switch(state) {
+    case Lock:
+      digitalWrite(ONBOARD_LED, HIGH);
+      digitalWrite(LOCK_LED, HIGH);
+      digitalWrite(UNLOCK_LED, LOW);
+      break;
+    case Unlock:
+      digitalWrite(ONBOARD_LED, LOW);
+      digitalWrite(LOCK_LED, LOW);
+      digitalWrite(UNLOCK_LED, HIGH);
+      break;
+    default:
+      break;
+  }
 }
 
 // callback function that will be executed when data is received
@@ -87,18 +110,16 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
   if (rollingCode.matches(message.rollingCode) && isValidTime(thisTime, otherTime)) {
     switch(message.action) {
       case LOCK_SIGNAL:
-        digitalWrite(ONBOARD_LED, HIGH);
-        digitalWrite(LOCK_LED, HIGH);
-        digitalWrite(UNLOCK_LED, LOW);
+        state = Lock;
         break;
       case UNLOCK_SIGNAL:
-        digitalWrite(ONBOARD_LED, LOW);
-        digitalWrite(LOCK_LED, LOW);
-        digitalWrite(UNLOCK_LED, HIGH);
+        state = Unlock;
         break;
       default:
         break;
     }
+
+    updateLockState();
   }
 }
 
