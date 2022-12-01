@@ -1,7 +1,7 @@
 /*
-  ESP32_Reciever.ino
-  Microcontroller code for the reciever unit
-  Recieves unlock and lock signals via ESP-NOW
+  ESP32_Receiver.ino
+  Microcontroller code for the receiver unit
+  Receives unlock and lock signals via ESP-NOW
   Acts on these signals by locking or unlocking a car 
     door via servo motors
 */
@@ -51,7 +51,7 @@ void setup() {
     return;
   }
   
-  // Register callback for recieving data
+  // Register callback for receiving data
   esp_now_register_recv_cb(OnDataRecv);
 }
 
