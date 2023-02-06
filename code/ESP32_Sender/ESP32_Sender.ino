@@ -13,16 +13,24 @@
 #include <WiFi.h>
 #include "RollingCode.h"
 
-#define S_DEBUG true
-#define LKBTTN 21
-#define UNLKBTTN 35
-#define UNLOCK_SIGNAL 0
-#define LOCK_SIGNAL 1
+#define S_DEBUG false     // Enable serial debug
+#define LKBTTN 23         // Lock Button (roll up back window in window mode)
+#define UNLKBTTN 5        // Unlock Button (Roll down back window in window mode)
+#define WNDBTTN 19        // Toggle window mode button
+#define STLED 22          // LED that lights up when signal sends successfully
+#define UNLOCK_SIGNAL 0   // Number representing unlock command (or roll down rear window in window mode)
+#define LOCK_SIGNAL 1     // Number representing lock command (or roll up rear window in window mode)
+#define WINDOW_SIGNAL 2   // Number representing the toggle to window mode command
 
 using namespace bevis_FinalProject;
 
 int LKBTTNSTATE;
 int UNLKBTTNSTATE;
+bool windowMode = false;
+
+// initialize multi-core so that LED can blink without pausing execution
+TaskHandle_t blinkStatusLED_;
+
 esp_now_peer_info_t peerInfo;
 RollingCode rollingCode = RollingCode(237461); // seed of 237461 with default m, a, and c values
 struct timeval tv_now; // time val for storing time in microseconds since power-on
@@ -62,20 +70,34 @@ void setup() {
     return;
   }
 
-  // initialize pins 21 and 35 for buttons
-  pinMode(LKBTTN, INPUT);
-  pinMode(UNLKBTTN, INPUT);
+  // initialize pins for buttons and LED
+  pinMode(LKBTTN, INPUT_PULLUP);
+  pinMode(UNLKBTTN, INPUT_PULLUP);
+  pinMode(WNDBTTN, INPUT_PULLUP);
+  pinMode(STLED, OUTPUT);
 }
 
 void loop() {
   int lkBttnSt = digitalRead(LKBTTN);
   int unlkBttnSt = digitalRead(UNLKBTTN);
+  int wndwBttnSt = digitalRead(WNDBTTN);
   // int lkBttnSt = 0;
   // int unlkBttnSt = 0;
-  Serial.print("unlock button state: ");
-  Serial.println(unlkBttnSt);
-  Serial.print("lock button state: ");
-  Serial.println(lkBttnSt);
+  if (S_DEBUG) {
+    Serial.print("unlock button state: ");
+    Serial.println(unlkBttnSt);
+    Serial.print("lock button state: ");
+    Serial.println(lkBttnSt);
+  }
+
+  if (wndwBttnSt == HIGH && !windowMode) {
+    windowMode = true;
+    sendSignal(WINDOW_SIGNAL);
+  }
+  else if (wndwBttnSt == LOW && windowMode) {
+    windowMode = false;
+    sendSignal(WINDOW_SIGNAL);
+  }
 
   if (lkBttnSt == HIGH && lkBttnSt != LKBTTNSTATE) {
     LKBTTNSTATE = lkBttnSt;
@@ -163,8 +185,36 @@ esp_err_t sendUnlockSignal() {
   return esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
 }
 
+esp_err_t sendSignal(byte sig) {
+  rollingCode.next();
+  gettimeofday(&tv_now, NULL);
+
+  message.tv_now = tv_now;
+  message.rollingCode = rollingCode.getSeed();
+  message.action = sig;
+
+  return esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
+}
+
 // callback for when data is sent
 void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
   Serial.print("\r\nLast Packet Send Status:\t");
   Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
+
+  if(status == ESP_NOW_SEND_SUCCESS){
+      xTaskCreatePinnedToCore(
+      blinkStatusLED, /* Function to implement the task */
+      "blink led", /* Name of the task */
+      10000,  /* Stack size in words */
+      NULL,  /* Task input parameter */
+      0,  /* Priority of the task */
+      &blinkStatusLED_,  /* Task handle. */
+      0); /* Core where the task should run */
+  }
+}
+
+void blinkStatusLED(void * parameter) {
+  digitalWrite(STLED, HIGH);
+  delay(200);
+  digitalWrite(STLED, LOW);
 }
