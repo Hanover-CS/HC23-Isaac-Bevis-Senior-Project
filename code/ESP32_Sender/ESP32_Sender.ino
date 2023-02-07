@@ -81,55 +81,108 @@ void loop() {
   int lkBttnSt = digitalRead(LKBTTN);
   int unlkBttnSt = digitalRead(UNLKBTTN);
   int wndwBttnSt = digitalRead(WNDBTTN);
-  // int lkBttnSt = 0;
-  // int unlkBttnSt = 0;
+
+  switch (wndwBttnSt) {
+    case HIGH:
+      if(!windowMode) {
+        windowMode = true;
+        sendSignal(WINDOW_SIGNAL);
+      }
+      break;
+    case LOW:
+      if(windowMode) {
+        windowMode = false;
+        sendSignal(WINDOW_SIGNAL);
+      }
+      break;
+    default:
+      break;
+  }
+
+  switch (lkBttnSt) {
+    case HIGH:
+      if(lkBttnSt != LKBTTNSTATE) {
+        LKBTTNSTATE = lkBttnSt;
+        sendSignal(LOCK_SIGNAL);
+      }
+      break;
+    case LOW:
+      if(lkBttnSt != LKBTTNSTATE) {
+        LKBTTNSTATE = lkBttnSt;
+        delay(1);
+      }
+      break;
+    default:
+      break;
+  }
+
+  switch(unlkBttnSt) {
+    case HIGH:
+      if(unlkBttnSt != UNLKBTTNSTATE) {
+        UNLKBTTNSTATE = unlkBttnSt;
+        sendSignal(UNLOCK_SIGNAL);
+      }
+      break;
+    case LOW:
+      if(unlkBttnSt != UNLKBTTNSTATE) {
+        UNLKBTTNSTATE = unlkBttnSt;
+        delay(1);
+      }
+      break;
+    default:
+      break;
+  }
+
+  // ********* For Serial Debugging *******
   if (S_DEBUG) {
     Serial.print("unlock button state: ");
     Serial.println(unlkBttnSt);
     Serial.print("lock button state: ");
     Serial.println(lkBttnSt);
+    runDebug();      
   }
 
-  if (wndwBttnSt == HIGH && !windowMode) {
-    windowMode = true;
-    sendSignal(WINDOW_SIGNAL);
-  }
-  else if (wndwBttnSt == LOW && windowMode) {
-    windowMode = false;
-    sendSignal(WINDOW_SIGNAL);
-  }
+}
 
-  if (lkBttnSt == HIGH && lkBttnSt != LKBTTNSTATE) {
-    LKBTTNSTATE = lkBttnSt;
-    sendLockSignal();
-  }
-  else if (lkBttnSt == LOW && lkBttnSt != LKBTTNSTATE) {
-    LKBTTNSTATE = lkBttnSt;
-    sleep(1);
-  }
+esp_err_t sendSignal(byte sig) {
+  rollingCode.next();
+  gettimeofday(&tv_now, NULL);
 
-  if (unlkBttnSt == HIGH && unlkBttnSt != UNLKBTTNSTATE) {
-    UNLKBTTNSTATE = unlkBttnSt;
-    sendUnlockSignal();
-  }
-  else if (unlkBttnSt == LOW && unlkBttnSt != UNLKBTTNSTATE) {
-    UNLKBTTNSTATE = unlkBttnSt;
-    sleep(1);
-  }
+  message.tv_now = tv_now;
+  message.rollingCode = rollingCode.getSeed();
+  message.action = sig;
 
-  // ********* For Serial Debugging *******
-  if (S_DEBUG){
-    String cmd = Serial.readString();
+  return esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
+}
+
+// callback for when data is sent
+void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
+  Serial.print("\r\nLast Packet Send Status:\t");
+  Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
+
+  if(status == ESP_NOW_SEND_SUCCESS){
+      xTaskCreatePinnedToCore(blinkStatusLED, "blink led", 10000, NULL, 0, &blinkStatusLED_, 0);
+  }
+}
+
+void blinkStatusLED(void * parameter) {
+  digitalWrite(STLED, HIGH);
+  delay(300);
+  digitalWrite(STLED, LOW);
+}
+
+void runDebug() {
+  String cmd = Serial.readString();
     if (cmd == "L") {
       Serial.println("Sending via debug");
-      esp_err_t result = sendLockSignal();
+      esp_err_t result = sendSignal(LOCK_SIGNAL);
       Serial.print("Result = ");
       Serial.println(result);
     }
   
     else if (cmd == "U") {
       Serial.print("Sending via debug");
-      esp_err_t result = sendUnlockSignal();
+      esp_err_t result = sendSignal(UNLOCK_SIGNAL);
       Serial.print("Result = ");
       Serial.println(result);
     }
@@ -159,62 +212,4 @@ void loop() {
       Serial.print("Current time is: ");
       Serial.println(strftime_buf);
     }
-  }
-
-}
-
-esp_err_t sendLockSignal() {
-  rollingCode.next();
-  gettimeofday(&tv_now, NULL);
-
-  message.tv_now = tv_now;
-  message.rollingCode = rollingCode.getSeed();
-  message.action = LOCK_SIGNAL;
-
-  return esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
-}
-
-esp_err_t sendUnlockSignal() {
-  rollingCode.next();
-  gettimeofday(&tv_now, NULL);
-
-  message.tv_now = tv_now;
-  message.rollingCode = rollingCode.getSeed();
-  message.action = UNLOCK_SIGNAL;
-
-  return esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
-}
-
-esp_err_t sendSignal(byte sig) {
-  rollingCode.next();
-  gettimeofday(&tv_now, NULL);
-
-  message.tv_now = tv_now;
-  message.rollingCode = rollingCode.getSeed();
-  message.action = sig;
-
-  return esp_now_send(broadcastAddress, (uint8_t *) &message, sizeof(message));
-}
-
-// callback for when data is sent
-void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
-  Serial.print("\r\nLast Packet Send Status:\t");
-  Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
-
-  if(status == ESP_NOW_SEND_SUCCESS){
-      xTaskCreatePinnedToCore(
-      blinkStatusLED, /* Function to implement the task */
-      "blink led", /* Name of the task */
-      10000,  /* Stack size in words */
-      NULL,  /* Task input parameter */
-      0,  /* Priority of the task */
-      &blinkStatusLED_,  /* Task handle. */
-      0); /* Core where the task should run */
-  }
-}
-
-void blinkStatusLED(void * parameter) {
-  digitalWrite(STLED, HIGH);
-  delay(200);
-  digitalWrite(STLED, LOW);
 }
