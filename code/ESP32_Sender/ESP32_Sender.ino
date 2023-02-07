@@ -13,23 +13,22 @@
 #include <WiFi.h>
 #include "RollingCode.h"
 
-#define S_DEBUG false     // Enable serial debug
-#define LKBTTN 23         // Lock Button (roll up back window in window mode)
-#define UNLKBTTN 5        // Unlock Button (Roll down back window in window mode)
-#define WNDBTTN 19        // Toggle window mode button
-#define STLED 22          // LED that lights up when signal sends successfully
-#define UNLOCK_SIGNAL 0   // Number representing unlock command (or roll down rear window in window mode)
-#define LOCK_SIGNAL 1     // Number representing lock command (or roll up rear window in window mode)
-#define WINDOW_SIGNAL 2   // Number representing the toggle to window mode command
+#define S_DEBUG false         // Enable serial debug
+#define LKBTTN 23             // Lock Button (roll up back window in window mode)
+#define UNLKBTTN 5            // Unlock Button (Roll down back window in window mode)
+#define WNDBTTN 19            // Toggle window mode button
+#define STLED 22              // LED that lights up when signal sends successfully
+#define UNLOCK_SIGNAL 0       // Number representing unlock command
+#define LOCK_SIGNAL 1         // Number representing lock command
+#define WINDOW_SIGNAL 2       // Number representing the toggle to window mode command
+#define WINDOW_UP_SIGNAL 3    // Number represneting the roll up window command 
+#define WINDOW_DOWN_SIGNAL 4  // Number representing the roll down window command
 
 using namespace bevis_FinalProject;
 
 int LKBTTNSTATE;
 int UNLKBTTNSTATE;
-bool windowMode = false;
 
-// initialize multi-core so that LED can blink without pausing execution
-TaskHandle_t blinkStatusLED_;
 
 esp_now_peer_info_t peerInfo;
 RollingCode rollingCode = RollingCode(237461); // seed of 237461 with default m, a, and c values
@@ -78,27 +77,31 @@ void setup() {
 }
 
 void loop() {
-  int lkBttnSt = digitalRead(LKBTTN);
-  int unlkBttnSt = digitalRead(UNLKBTTN);
-  int wndwBttnSt = digitalRead(WNDBTTN);
 
-  switch (wndwBttnSt) {
-    case HIGH:
-      if(!windowMode) {
-        windowMode = true;
-        sendSignal(WINDOW_SIGNAL);
-      }
-      break;
-    case LOW:
-      if(windowMode) {
-        windowMode = false;
-        sendSignal(WINDOW_SIGNAL);
-      }
-      break;
-    default:
-      break;
+  if(digitalRead(WNDBTTN) == HIGH) {
+    sendSignal(WINDOW_SIGNAL);    // turn on window mode
+    Serial.println("before loop");
+    while(digitalRead(WNDBTTN) == HIGH) {
+      Serial.println("inloop");
+      pollWindowUButton();
+      pollWindowDButton();
+    }
+    Serial.println("after loop");
+    sendSignal(WINDOW_SIGNAL);    // turn off window mode
   }
 
+  pollLockButton();
+  pollUnlockButton();
+
+  // ********* For Serial Debugging *******
+  if (S_DEBUG) {
+    runDebug();      
+  }
+
+}
+
+void pollLockButton() {
+  int lkBttnSt = digitalRead(LKBTTN);
   switch (lkBttnSt) {
     case HIGH:
       if(lkBttnSt != LKBTTNSTATE) {
@@ -115,7 +118,26 @@ void loop() {
     default:
       break;
   }
+}
 
+void pollWindowUButton() {
+  int lkBttnSt = digitalRead(LKBTTN);
+  switch (lkBttnSt) {
+    case HIGH:
+      sendSignal(WINDOW_UP_SIGNAL);
+      while(digitalRead(LKBTTN) == HIGH){}//halt further execution until nolonger holding button
+      sendSignal(LOCK_SIGNAL);
+      break;
+    case LOW:
+      delay(1);
+      break;
+    default:
+      break;
+  }
+}
+
+void pollUnlockButton() {
+  int unlkBttnSt = digitalRead(UNLKBTTN);
   switch(unlkBttnSt) {
     case HIGH:
       if(unlkBttnSt != UNLKBTTNSTATE) {
@@ -132,16 +154,22 @@ void loop() {
     default:
       break;
   }
+}
 
-  // ********* For Serial Debugging *******
-  if (S_DEBUG) {
-    Serial.print("unlock button state: ");
-    Serial.println(unlkBttnSt);
-    Serial.print("lock button state: ");
-    Serial.println(lkBttnSt);
-    runDebug();      
+void pollWindowDButton() {
+  int unlkBttnSt = digitalRead(UNLKBTTN);
+  switch(unlkBttnSt) {
+    case HIGH:
+      sendSignal(WINDOW_DOWN_SIGNAL);
+      while(digitalRead(UNLKBTTN) == HIGH){}//halt further execution until nolonger holding button
+      sendSignal(UNLOCK_SIGNAL);
+      break;
+    case LOW:
+      delay(1);
+      break;
+    default:
+      break;
   }
-
 }
 
 esp_err_t sendSignal(byte sig) {
@@ -161,14 +189,10 @@ void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
   Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
 
   if(status == ESP_NOW_SEND_SUCCESS){
-      xTaskCreatePinnedToCore(blinkStatusLED, "blink led", 10000, NULL, 0, &blinkStatusLED_, 0);
+    digitalWrite(STLED, HIGH);
+    delay(300);
+    digitalWrite(STLED, LOW);
   }
-}
-
-void blinkStatusLED(void * parameter) {
-  digitalWrite(STLED, HIGH);
-  delay(300);
-  digitalWrite(STLED, LOW);
 }
 
 void runDebug() {
