@@ -90,30 +90,8 @@ void OnDataRecv(const uint8_t * mac, const uint8_t *incomingData, int len) {
   memcpy(&message, incomingData, sizeof(message));
   gettimeofday(&tv_now, NULL);
 
-  // ***** debug messages ******
-  // Serial.print("Bytes received: ");
-  // Serial.println(len);
-  // Serial.print("Time S: ");
-  // Serial.println(message.tv_now.tv_sec);
-  // Serial.print("Time Ms: ");
-  // Serial.println(message.tv_now.tv_usec);
-  // Serial.print("Rolling code: ");
-  // Serial.println(message.rollingCode);
-  // Serial.print("Action: ");
-  // Serial.println(message.action);
-  // Serial.println();
-  // Serial.print("This time S: ");
-  // Serial.println(tv_now.tv_sec);
-  // Serial.print("This time Ms: ");
-  // Serial.println(tv_now.tv_usec);
-  
-
   int64_t thisTime = (int64_t)tv_now.tv_sec * 1000000L + (int64_t)tv_now.tv_usec;
   int64_t otherTime = (int64_t)message.tv_now.tv_sec * 1000000L + (int64_t)message.tv_now.tv_usec;
-  
-  // Serial.print("isValidTime: ");
-  // Serial.println(isValidTime(thisTime, otherTime));
-  // Serial.println();
 
   if (rollingCode.matches(message.rollingCode) && isValidTime(thisTime, otherTime)) {
     Serial.println("recieved valid signal...");
